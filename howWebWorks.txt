@@ -1,0 +1,106 @@
+What is HTTP?
+    Also known as Hyper Text Protocol.
+    ANS: Hyper Text Transfer Protocol is governs how clients get data from, or send data to, a server.
+
+What is a URL?
+    it represents the complete address of the website
+    ANS: Short for Uniform Resource Locator, a URL is an address for some internet resource.
+
+What is DNS?
+    DNS stand for Domain Name system
+    ANS: Short for Domain Name System, this is a system that takes human-readable URLs and converts them into IP addresses.
+
+What is a query string?
+    a query string is the text representing an item to be searched and then posted to the server for response
+    ANS: The query string allows you to pass key-value pairs into the URL, in the format ?key1=value1&key2=value2...
+
+What are two HTTP verbs and how are they different?
+    GET and POST. Get is command to retrieve inform from the website and post to add information into the website
+    ANS: GET - get some data from the server (most pages, search forms)
+        POST - send some data to the server (pages that change data on server)
+
+What is an HTTP request?
+    request represent the comment that is sent to the site to perform cetain task
+    ANS: An HTTP request is a request from a client to a server which follows the HTTP protocol (eg a request for HTML from news.google.com)
+
+What is an HTTP response?
+    response is the set of codes as response by website based on the request sent
+    ANS: An HTTP response is a response from a server to a client which follows the HTTP protocol (eg sending back HTML/CSS/JS/etc)
+
+What is an HTTP header? Give a couple examples of request and response headers you have seen.
+    header usually contains the status of the site, usually 200 represents response is ok. can be located by pressting CTRL+I, under network, click any response and view header
+    ANS: Headers provide additional information about the request or the response. Here are some examples:
+        Request headers: Host, User-Agent, Accept, Cookie, Cache-Control
+        Response headers: Content-Type, Last-Modified, Set-Cookie, Cache-Control
+        What happens when you type a URL in a browser?
+        Your browser “resolves” the name into an IP address using DNS
+        Your browser makes a request to that IP address, including headers (info about browser, any previous cookies, and other things)
+        The server sends a response (typically, HTML, with a status code (200 if it was sucessful)
+        The browser makes a DOM from that HTML, and finds any other resources needed (images, CSS, JavaScript, etc)
+        The browser makes separate HTTP requests for those resources and receives response from the server for each
+
+
+
+///////////////////////////////////////////////
+
+
+Part Two:
+1. Using curl, make a GET request to the icanhazdadjoke.com API to find all jokes involving the word “pirate”
+rehamer@LadsakFamily:~$ curl -v icanhazdadjoke.com
+*   Trying 104.21.66.15:80...
+* Connected to icanhazdadjoke.com (104.21.66.15) port 80 (#0)
+> GET / HTTP/1.1
+> Host: icanhazdadjoke.com
+> User-Agent: curl/7.81.0
+> Accept: */*
+>
+* Mark bundle as not supporting multiuse
+< HTTP/1.1 308 Permanent Redirect
+< Date: Sat, 25 Mar 2023 00:24:16 GMT
+< Content-Length: 0
+< Connection: keep-alive
+< Location: https://icanhazdadjoke.com/
+< CF-Cache-Status: DYNAMIC
+< Report-To: {"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=JCyZ1LnTPPluwmB4M5WsB5Dmt2W7bjC5y4NWm9nbHRe0cLJBv2V3GNduP4sKIo7TEKJgReGs3PVITxFuz8t5gw3F%2BeE%2Fxa0ZPSJEepyAqQpEC2LWwS7DJGvKECJaQf458XT3C8Y%3D"}],"group":"cf-nel","max_age":604800}
+< NEL: {"success_fraction":0,"report_to":"cf-nel","max_age":604800}
+< X-Content-Type-Options: nosniff
+< Server: cloudflare
+< CF-RAY: 7ad30290482cb33e-TLH
+< alt-svc: h3=":443"; ma=86400, h3-29=":443"; ma=86400
+<
+* Connection #0 to host icanhazdadjoke.com left intact
+
+
+2. Use dig to find what the IP address is for icanhazdadjoke.com
+rehamer@LadsakFamily:~$ dig icanhazdadjoke.com
+
+; <<>> DiG 9.18.1-1ubuntu1.2-Ubuntu <<>> icanhazdadjoke.com
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 26922
+;; flags: qr rd ad; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 0
+;; WARNING: recursion requested but not available
+
+;; QUESTION SECTION:
+;icanhazdadjoke.com.            IN      A
+
+;; ANSWER SECTION:
+icanhazdadjoke.com.     0       IN      A       104.21.66.15
+icanhazdadjoke.com.     0       IN      A       172.67.198.173
+
+;; Query time: 20 msec
+;; SERVER: 172.29.240.1#53(172.29.240.1) (UDP)
+;; WHEN: Fri Mar 24 20:21:27 EDT 2023
+;; MSG SIZE  rcvd: 86
+
+3. Make a simple web page and serve it using python3 -m http.server. Visit the page in a browser.
+$ python3 -m http.server
+Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
+127.0.0.1 - - [24/Mar/2023 20:28:47] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [24/Mar/2023 20:28:47] code 404, message File not found
+127.0.0.1 - - [24/Mar/2023 20:28:47] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [24/Mar/2023 20:29:45] "GET /calculator/ HTTP/1.1" 200 -
+127.0.0.1 - - [24/Mar/2023 20:29:46] "GET /calculator/calculator.css HTTP/1.1" 200 -
+127.0.0.1 - - [24/Mar/2023 20:29:46] "GET /calculator/calculator.js HTTP/1.1" 200 -
+127.0.0.1 - - [24/Mar/2023 20:29:46] "GET /calculator/calculator-test.js HTTP/1.1" 200 -
+
